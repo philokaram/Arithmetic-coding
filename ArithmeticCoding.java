@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 public class ArithmeticCoding implements LosslessCompression{
+    public Overhead Overhead;
+    public Overhead getOverHead(){
+        return overhead;
+    }
 
     @Override
     public double compress(String originalText) {
@@ -29,7 +33,10 @@ public class ArithmeticCoding implements LosslessCompression{
                 }
             }
         }
-        //4- select number from last range
+        //4- store overhead
+        overhead.probabilities = probabilities;
+        overhead.textSize = originalText.size();
+        //5- select number from last range
         return (high-low)/2;
     }
 
