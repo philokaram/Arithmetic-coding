@@ -9,9 +9,13 @@ public class Main {
         Scanner input = new Scanner(System.in);
         int choice;
         String inputFileName;
+        String overheadFileName;
         String outputFileName;
         String orignalText;
+        String outputText;
         double compressedValue;
+        String compressedNum;
+        Overhead overhead;
         boolean isRunning = true;
         while(isRunning){
             menu();
@@ -20,16 +24,27 @@ public class Main {
                 case 1:
                     System.out.print("Enter Name of a file to compress it:  ");
                     inputFileName =input.next();
-                    orignalText = fileOperation.readTxtFile(inputFileName);
+                    orignalText = fileOperation.readOriginalFile(inputFileName);
                     compressedValue = compressor.compress(orignalText);
                     System.out.println("compression is done.");
                     System.out.print("Enter Name of a compressed file:  ");
                     outputFileName =input.next();
-                    fileOperation.writeResult(compressedValue, outputFileName);                    
+                    fileOperation.writeCompressedValue(compressedValue, outputFileName);                    
                     fileOperation.writeOverhead(((ArithmeticCoding)compressor).getOverHead(), outputFileName);                    
                     break;
                 case 2:
-                    compressor.deCompress("null");                    
+                System.out.print("Enter Name of a file to decompress it:  ");
+                inputFileName =input.next();
+                compressedNum = fileOperation.readcompressedValue(inputFileName);
+                System.out.print("Enter Name of an overhead file:  ");
+                overheadFileName =input.next();
+                overhead = fileOperation.readOverhead(overheadFileName); //--> not complete
+                ((ArithmeticCoding) compressor).setOverHead(overhead);
+                outputText = compressor.deCompress(compressedNum);
+                System.out.println("decompression is done.");
+                System.out.print("Enter Name of a output file:  ");
+                outputFileName =input.next();
+                fileOperation.WriteOutputFile(outputText,outputFileName);
                     break;
                 case 0:
                 isRunning = false;

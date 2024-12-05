@@ -1,8 +1,5 @@
-Information Theory and Data
-Compression / Multimedia - 2024
 
-Lecture 9 [Predictive Coding]
 
-Dr. Asmaa Ahmed E. Osman
+philo
 
-Faculty of Computers and Artificial Intelligence
+123

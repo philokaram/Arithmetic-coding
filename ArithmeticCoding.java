@@ -7,6 +7,9 @@ public class ArithmeticCoding implements LosslessCompression{
     public Overhead getOverHead(){
         return overhead;
     }
+    public void setOverHead(Overhead overhead){
+        this.overhead = overhead;
+    }
 
     @Override
     public double compress(String originalText) {
@@ -52,7 +55,9 @@ public class ArithmeticCoding implements LosslessCompression{
 
     @Override
     public String deCompress(String decodedText) {
-        return "";
+        System.out.println(decodedText);
+        System.out.println(overhead.textSize);
+        return "ASD";
     }
 
     
