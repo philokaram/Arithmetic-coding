@@ -11,11 +11,7 @@ public class ArithmeticCoding implements LosslessCompression{
     @Override
     public double compress(String originalText) {
         //1- calculate the probabilities
-        //Map<Character,Double> probabilities  = Calculation.CalculateProbabilities(originalText);
-        Map<Character,Double> probabilities  = new HashMap();
-        probabilities.put('A',0.8);
-        probabilities.put('B',0.02);
-        probabilities.put('C',0.18);
+        Map<Character,Double> probabilities  = Calculation.CalculateProbabilities(originalText);
         //2- make array of ranges
         RangeNode[] ranges = new RangeNode[probabilities.size()];
         int index = 0;
