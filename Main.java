@@ -20,7 +20,7 @@ public class Main {
                 case 1:
                     System.out.print("Enter Name of a file to compress it:  ");
                     inputFileName =input.next();
-                    orignalText = fileOperation.read(inputFileName);
+                    orignalText = fileOperation.readTxtFile(inputFileName);
                     compressedValue = compressor.compress(orignalText);
                     System.out.println("compression is done.");
                     System.out.print("Enter Name of a compressed file:  ");

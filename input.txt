@@ -1,4 +1,8 @@
+Information Theory and Data
+Compression / Multimedia - 2024
 
-ACBA
+Lecture 9 [Predictive Coding]
 
-23
+Dr. Asmaa Ahmed E. Osman
+
+Faculty of Computers and Artificial Intelligence
