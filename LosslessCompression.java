@@ -1,4 +1,4 @@
 public interface LosslessCompression{
-String compress(String originalText);
+double compress(String originalText);
 String deCompress(String decodedText);
 }
