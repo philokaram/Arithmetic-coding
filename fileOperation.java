@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Map.Entry;
+import java.util.HashMap;
 public class fileOperation {
     public static String readOriginalFile(String fileName){ //  read from txt file
         File file = new File(fileName);
@@ -36,25 +37,34 @@ public class fileOperation {
         }
         return  Double.toString(num);
     }
-    public static Overhead readOverhead(String fileName){ //read overhead from txt file
+    public static Overhead readOverhead(String fileName) { // read overhead from txt file
         Overhead overhead = new Overhead();
+        overhead.probabilities = new HashMap<>(); // Initialize the map
         File file = new File(fileName);
         Scanner fileIn;
         try {
             fileIn = new Scanner(file);
-            String size = fileIn.nextLine();
-            overhead.textSize = Integer.parseInt(size);
-        //     String nextLine = "";
-        //     while (fileIn.hasNext()) {
-        //         nextLine = fileIn.nextLine();
-        //         String[] arr = nextLine.spilt(" (?=[a-zA-Z])");
-        //         if(arr[0].charAt(0) == '`'){
-        //             overhead.probabilities.put('\n', Double.parseDouble(arr[1]));
-        //         }
-        //         overhead.probabilities.put(arr[0].charAt(0), Double.parseDouble(arr[1]));
-          //  }
+            if (fileIn.hasNextLine()) {
+                String size = fileIn.nextLine();
+                overhead.textSize = Integer.parseInt(size);
+            }
+            while (fileIn.hasNextLine()) {
+                String nextLine = fileIn.nextLine();
+                String[] arr = nextLine.split(" ", 2); // Split into two parts only
+                if (arr.length == 2) {
+                    char key = arr[0].charAt(0);
+                    if (key == '`') {
+                        key = '\n'; // Handle newline character
+                    }
+                    double probability = Double.parseDouble(arr[1]);
+                    overhead.probabilities.put(key, probability);
+                }
+            }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();}
+            System.err.println("File not found: " + fileName);
+        } catch (Exception e) {
+            System.err.println("Error reading overhead: " + e.getMessage());
+        }
         return overhead;
     }
     public static void WriteOutputFile(String output,String fileName){ //  Write from txt file
@@ -75,25 +85,21 @@ public class fileOperation {
             e.printStackTrace();
         }
     }
-    public static void writeOverhead(Overhead overhead,String fileName){ //write overhead in txt file
-        File file = new File(fileName+"_overhead.txt");
-        try {
-            FileWriter fileOut = new FileWriter(file);
+    public static void writeOverhead(Overhead overhead, String fileName) { // write overhead in txt file
+        File file = new File(fileName + "_overhead.txt");
+        try (FileWriter fileOut = new FileWriter(file)) {
             fileOut.write(Integer.toString(overhead.textSize));
-            System.out.println(overhead.textSize);
             fileOut.write("\n");
-            if(overhead.probabilities.containsKey('\n')){
+            if (overhead.probabilities.containsKey('\n')) {
                 overhead.probabilities.put('`', overhead.probabilities.get('\n'));
                 overhead.probabilities.remove('\n');
             }
-            for (Entry<Character,Double> entry : overhead.probabilities.entrySet()) {
-                fileOut.write(entry.getKey() + " "+ entry.getValue());
+            for (Entry<Character, Double> entry : overhead.probabilities.entrySet()) {
+                fileOut.write(entry.getKey() + " " + entry.getValue());
                 fileOut.write("\n");
             }
-            fileOut.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error writing overhead: " + e.getMessage());
         }
-        
     }
 }

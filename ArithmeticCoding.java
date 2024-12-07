@@ -54,10 +54,40 @@ public class ArithmeticCoding implements LosslessCompression{
     }
 
     @Override
-    public String deCompress(String decodedText) {
-        System.out.println(decodedText);
-        System.out.println(overhead.textSize);
-        return "ASD";
+    public String deCompress(String compressedValueStr) {
+        double compressedValue = Double.parseDouble(compressedValueStr);
+        StringBuilder decodedText = new StringBuilder();
+        
+        // Reconstruct the range nodes using the stored probabilities
+        RangeNode[] ranges = new RangeNode[overhead.probabilities.size()];
+        int index = 0;
+        double highRange = 0.0;
+        for (Entry<Character, Double> entry : overhead.probabilities.entrySet()) {
+            ranges[index] = new RangeNode(entry.getKey(), highRange, highRange + entry.getValue());
+            highRange += entry.getValue();
+            index++;
+        }
+        
+        // Decode the text
+        double low = 0.0;
+        double high = 1.0;
+        double range;
+        
+        for (int i = 0; i < overhead.textSize; i++) {
+            range = high - low;
+            for (RangeNode rangeNode : ranges) {
+                double rangeLow = low + range * rangeNode.lowRange;
+                double rangeHigh = low + range * rangeNode.highRange;
+                if (compressedValue >= rangeLow && compressedValue < rangeHigh) {
+                    decodedText.append(rangeNode.ch);
+                    low = rangeLow;
+                    high = rangeHigh;
+                    break;
+                }
+            }
+        }
+        
+        return decodedText.toString();
     }
 
     

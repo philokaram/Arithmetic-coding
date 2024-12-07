@@ -5,7 +5,7 @@ public class Main {
         System.out.println("   |                                        |   ");
         System.out.println("   |    Floating Point Arithmetic Coding    |   ");
         System.out.println("   |________________________________________|   \n");
-        LosslessCompression compressor = new ArithmeticCoding();
+        ArithmeticCoding compressor = new ArithmeticCoding();
         Scanner input = new Scanner(System.in);
         int choice;
         String inputFileName;
@@ -30,7 +30,7 @@ public class Main {
                     System.out.print("Enter Name of a compressed file:  ");
                     outputFileName =input.next();
                     fileOperation.writeCompressedValue(compressedValue, outputFileName);                    
-                    fileOperation.writeOverhead(((ArithmeticCoding)compressor).getOverHead(), outputFileName);                    
+                    fileOperation.writeOverhead(compressor.getOverHead(), outputFileName);
                     break;
                 case 2:
                 System.out.print("Enter Name of a file to decompress it:  ");
@@ -39,7 +39,7 @@ public class Main {
                 System.out.print("Enter Name of an overhead file:  ");
                 overheadFileName =input.next();
                 overhead = fileOperation.readOverhead(overheadFileName); //--> not complete
-                ((ArithmeticCoding) compressor).setOverHead(overhead);
+                compressor.setOverHead(overhead);
                 outputText = compressor.deCompress(compressedNum);
                 System.out.println("decompression is done.");
                 System.out.print("Enter Name of a output file:  ");
