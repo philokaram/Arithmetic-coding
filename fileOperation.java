@@ -1,15 +1,14 @@
-import java.io.BufferedWriter;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.Map.Entry;
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Scanner;
 public class fileOperation {
     public static String readOriginalFile(String fileName){ //  read from txt file
         File file = new File(fileName);
@@ -52,7 +51,13 @@ public class fileOperation {
                 String nextLine = fileIn.nextLine();
                 String[] arr = nextLine.split(" ", 2); // Split into two parts only
                 if (arr.length == 2) {
-                    char key = arr[0].charAt(0);
+                    char key;
+                    if(arr[0].equals("")){
+                        key = ' ';
+                    }
+                    else{
+                        key = arr[0].charAt(0);
+                    }
                     if (key == '`') {
                         key = '\n'; // Handle newline character
                     }

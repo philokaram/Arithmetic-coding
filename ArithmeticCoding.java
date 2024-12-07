@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.Map.Entry;
 public class ArithmeticCoding implements LosslessCompression{
     public Overhead overhead = new Overhead();
@@ -67,7 +65,6 @@ public class ArithmeticCoding implements LosslessCompression{
             highRange += entry.getValue();
             index++;
         }
-        
         // Decode the text
         double low = 0.0;
         double high = 1.0;
