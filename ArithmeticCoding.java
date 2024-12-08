@@ -48,6 +48,7 @@ public class ArithmeticCoding implements LosslessCompression{
         overhead.probabilities = probabilities;
         overhead.textSize = originalText.length();
         //5- select number from last range
+        System.out.println("compressed value: "+((high+low)/2));
         return (high+low)/2;
     }
 

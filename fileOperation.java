@@ -84,7 +84,7 @@ public class fileOperation {
         
     }
     public static void writeCompressedValue(double number,String fileName){ // write value in dat file
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(fileName +".dat"))) {
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(fileName +".bin"))) {
             dos.writeDouble(number);
         } catch (IOException e) {
             e.printStackTrace();
